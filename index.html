@@ -1108,7 +1108,7 @@ var H=DATA_.map(function(d){
 });
 var BY={};H.forEach(function(h){BY[h.ref]=h});
 var src=function(h,i){return 'img/p'+pad(h.k)+'-'+i+'.webp'};
-var thumb=function(h,i){i=i==null?h.order[0]:i;return i<5?'img/t'+pad(h.k)+'-'+i+'.webp':src(h,i)};
+var thumb=function(h,j){j=j==null?0:j;return j<5?'img/t'+pad(h.k)+'-'+j+'.webp':src(h,h.order[j])};
 var normRef=function(r){var m=String(r||'').match(/(\d{1,3})/);return m?'WE'+pad(+m[1]):''};
 var houseURL=function(h){return BASE+'c/'+h.ref+'/'};
 
@@ -1178,7 +1178,7 @@ function card(h){
   var badge=h.rev?'<span class="badge rv">'+ic('spark')+'Réveillon · '+brl(h.rev)+'</span>':(h.dest?'<span class="badge">Destaque</span>':(h.vid?'<span class="badge vd">'+ic('play')+'Com vídeo</span>':''));
   var tags=h.tags.slice(0,3).map(function(t){return '<li>'+ic(TAGS[t][1])+TAGS[t][0]+'</li>'}).join('')+(h.tags.length>3?'<li>+'+(h.tags.length-3)+'</li>':'');
   return '<article class="card">'+
-    '<div class="cm"><div class="cs" data-ref="'+h.ref+'">'+imgs.map(function(i,j){return '<img '+(j?'data-src':'src')+'="'+src(h,i)+'" alt="'+(j?'':esc(h.nome))+'"'+(j?' aria-hidden="true"':'')+' loading="lazy" decoding="async">'}).join('')+'</div>'+
+    '<div class="cm"><div class="cs" data-ref="'+h.ref+'">'+imgs.map(function(i,j){return '<img '+(j?'data-src':'src')+'="'+thumb(h,j)+'" alt="'+(j?'':esc(h.nome))+'"'+(j?' aria-hidden="true"':'')+' loading="lazy" decoding="async">'}).join('')+'</div>'+
     badge+'<button class="fav" type="button" data-fav="'+h.ref+'" aria-pressed="'+fav+'" aria-label="Salvar '+esc(h.nome)+' na lista">'+ic('heart')+'</button>'+
     (imgs.length>1?'<button class="cnav p" type="button" tabindex="-1" aria-hidden="true">'+ic('chl')+'</button><button class="cnav n" type="button" tabindex="-1" aria-hidden="true">'+ic('chr')+'</button><div class="dots" aria-hidden="true">'+imgs.map(function(_,j){return '<i'+(j?'':' class="on"')+'></i>'}).join('')+'</div>':'')+
     '</div><a class="cb" href="#casa/'+h.ref+'" data-open="'+h.ref+'">'+
